@@ -1,0 +1,11 @@
+[mysqld]
+server_id=1
+log-bin=mysql-bin
+
+# specify replication database
+binlog_do_db = pay_data
+#binlog_do_db = test2
+#
+#allowPublicKeyRetrieval=true
+#useSSL=false
+default-time-zone='+08:00'

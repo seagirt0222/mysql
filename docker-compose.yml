@@ -1,0 +1,54 @@
+version: "3.3"
+ 
+services:
+  master:
+    image: mysql:8.0.27
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=GV8Drpskr7KkSPAQtqyP4cFTGcutSXwq
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./master/conf.d:/etc/mysql/conf.d
+      - ./volumes/sql:/tmp/sql
+      - ./volumes/master/mysql:/var/lib/mysql
+    networks:
+      mysql:
+        ipv4_address: 172.23.0.2
+
+#  slave1:
+#    image: mysql:8.0.27
+#    restart: unless-stopped
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=GV8Drpskr7KkSPAQtqyP4cFTGcutSXwq
+#    volumes:
+#      - ./slave1/conf.d:/etc/mysql/conf.d
+#      - ./volumes/sql:/tmp/sql
+#      - ./volumes/slave1/mysql:/var/lib/mysql
+#    networks:
+#      mysql:
+#        ipv4_address: 172.23.0.3
+#    depends_on:
+#     - master
+#
+#  slave2:
+#    image: mysql:8.0.27
+#    restart: unless-stopped
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=GV8Drpskr7KkSPAQtqyP4cFTGcutSXwq
+#    volumes:
+#      - ./slave2/conf.d:/etc/mysql/conf.d
+#      - ./volumes/sql:/tmp/sql
+#      - ./volumes/slave2/mysql:/var/lib/mysql
+#    networks:
+#      mysql:
+#        ipv4_address: 172.23.0.4
+#    depends_on:
+#     - master
+
+networks:
+  mysql:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.23.0.0/24
